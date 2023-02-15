@@ -1,4 +1,4 @@
-from flask import Flask, request, session, make_response
+from flask import Flask, request, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 import uuid
@@ -48,21 +48,12 @@ def hello():
     device = user_agent.device.family
     ip = request.remote_addr
     country = reader.get(ip)['country']['iso_code']
-    print(reader.get(ip))
     visit = traffic(u_id, browser,os, device, ip, country)
     db.session.add(visit)
     db.session.commit()
-    resp = make_response("Done")
+    resp = make_response(jsonify({'status': 'success'}))
     resp.set_cookie('u_id', u_id)
     return resp
-
-
-@app.route('/webhook')
-def webhook():
-    # Check available values, if none, then use None value for some
-    results = traffic.query.all()
-    print(results)
-    return "Done"
 # Routes - 
 # - Installation
 # - Authenticate
