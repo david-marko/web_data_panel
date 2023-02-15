@@ -1,0 +1,9 @@
+requests
+flask
+Flask-SQLAlchemy
+pyyaml
+ua-parser
+user-agents
+py-mmdb-encoder
+maxminddb
+netaddr
